@@ -1,7 +1,15 @@
+using Microsoft.EntityFrameworkCore;
+using SimpleBlog.Models;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+
+builder.Services.AddDbContext<SimpleBlogDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("SimpleBlogConnection") 
+    ?? throw new InvalidOperationException("Connection string 'SimpleBlogConnection' not found.")));
+
 
 var app = builder.Build();
 
